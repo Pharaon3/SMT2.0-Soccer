@@ -7,7 +7,7 @@ function map1y(map1y_argument) {
 }
 
 function map2y(map2y_argument) {
-    return (map2y_argument * map2y_argument / H + map2y_argument * 1.5) / 2.5;
+    return BRY * (map2y_argument * map2y_argument / H + map2y_argument * 1.5) / 2.5;
 }
 
 function map2x(map2x_argument, map2y_argument) {

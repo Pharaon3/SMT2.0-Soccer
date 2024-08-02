@@ -61,16 +61,82 @@ function moveBallByVC(vc) {
   } else if (vc == "21010") {     // Free kick
     let x = 0.6;
     moveBallByXY(x, y);
-  } else if (vc == "11001") {     // Free kick
+  } else if (vc == "11001") {     // Attack
     let x = 0.6;
     moveBallByXY(x, y);
-  } else if (vc == "21001") {     // Free kick
+  } else if (vc == "21001") {     // Attack
     let x = 0.6;
     moveBallByXY(x, y);
-  } else if (vc == "11234") {     // Free kick
+  } else if (vc == "11007") {     // Goal kick
     let x = 0.6;
     moveBallByXY(x, y);
-  } else if (vc == "21234") {     // Free kick
+  } else if (vc == "21007") {     // Goal kick
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11008") {     // Penalty
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21008") {     // Penalty
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11009") {     // Direct Free Kick
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21009") {     // Direct Free Kick
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11010") {     // Simple Free Kick
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21010") {     // Simple Free Kick
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11024") {     // Throw
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21024") {     // Throw
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11003") {     // Goal
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21003") {     // Goal
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11005") {     // Yellow Card
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21005") {     // Yellow Card
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11006") {     // Red Card
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21006") {     // Red Card
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11011") {     // Shot on goal
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21011") {     // Shot on goal
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11012") {     // Shot off goal
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21012") {     // Shot off goal
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11013") {     // Substitution
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21013") {     // Substitution
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "11014") {     // Kick off
+    let x = 0.6;
+    moveBallByXY(x, y);
+  } else if (vc == "21014") {     // Kick off
     let x = 0.6;
     moveBallByXY(x, y);
   }

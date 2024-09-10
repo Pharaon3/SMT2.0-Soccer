@@ -1,7 +1,8 @@
 // Variables Init
 let ball_x = 475, ball_y = 505;
 let homeTeamName, awayTeamName;
-let ball_pos = [[0.5, 0.5], [0.5, 0.5]];
+let teamNames = [];
+let ball_pos = [[0.5, 0.5, 0, ["", ""]], [0.5, 0.5, 0, ["", ""]]];
 let current_step = 1;       // current step of event
 let current_time_per_event = 0;       // it's initialized to 0 at the beginning of each event.
 let kick_or_bounce = 0; // 0: kick, 1: bounce, 2: hidden
@@ -11,6 +12,24 @@ let gameTime = 0;
 let isTimerRunning = 1;
 let startTime;
 let eventTexts = [["", ""], ["", ""]];
+let setlastposx = 0, setlastposy = 0;
+let hasXYpos = false;
+let currentBallPossessionTeam = 1; // 1: home, 2: away
+var rectId = 0, currentRectId = 0; // 0: none, 1: homeSafe, 2: homeAttack, 3: homeDangerousAttack, -3: awaySafe, -2: awayAttack, -1: awayDangerousAttack;
+
+var lineX = [
+    mapnx(0.5, 0.5),
+    mapnx(0.5, 0.5),
+    mapnx(0.5, 0.5),
+    mapnx(0.5, 0.5)
+]
+var lineY = [
+    mapny(0.5, 0.5),
+    mapny(0.5, 0.5),
+    mapny(0.5, 0.5),
+    mapny(0.5, 0.5)
+]
+
 // ball_pos = [
 //     [0.5, 0.5],
 //     [0.5, 0.1],

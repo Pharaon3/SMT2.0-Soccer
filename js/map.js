@@ -29,3 +29,11 @@ function mapx(mapx_argument, mapy_argument) {
 function mapy(mapx_argument, mapy_argument) {
     return map3y(map2y(map1y(mapy_argument)));
 }
+
+function mapnx(x, y) {
+    return mapx(x, y) + BALLX / 2;
+}
+
+function mapny(x, y) {
+    return mapy(x, y) + BALLY;
+}

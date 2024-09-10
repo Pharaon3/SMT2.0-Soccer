@@ -96,6 +96,7 @@ function initEachEvent() {
   }
   if (ball_pos[current_step][4] == 2) {   // small action
     showAction(ball_pos[current_step]);
+    prev_x = next_x; prev_y = next_y;
   } else {
     resetAction();
   }

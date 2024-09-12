@@ -20,7 +20,7 @@ function load() {
     }
   };
 
-  countdown();
+  // countdown();
 }
 
 function updateEvent(data) {

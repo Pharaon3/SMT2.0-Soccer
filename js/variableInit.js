@@ -15,7 +15,7 @@ let eventTexts = [["", ""], ["", ""]];
 let setlastposx = 0, setlastposy = 0;
 let hasXYpos = false;
 let currentBallPossessionTeam = 1; // 1: home, 2: away
-var rectId = 0, currentRectId = 0; // 0: none, 1: homeSafe, 2: homeAttack, 3: homeDangerousAttack, -3: awaySafe, -2: awayAttack, -1: awayDangerousAttack;
+let rectId = 0, currentRectId = 0; // 0: none, 1: homeSafe, 2: homeAttack, 3: homeDangerousAttack, -3: awaySafe, -2: awayAttack, -1: awayDangerousAttack;
 
 var lineX = [
     mapnx(0.5, 0.5),

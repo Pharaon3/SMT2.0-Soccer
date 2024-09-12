@@ -40,6 +40,7 @@ function updateEvent(data) {
       setBallByVC(data.gcd.VC);
     }
   }
+  initFootball(data);
 }
 function countdown() {
   var interval = setInterval(function () {
@@ -47,9 +48,13 @@ function countdown() {
     if (current_time_per_event >= 1) {    // It's time to set next event
       initEachEvent()
     } else {                              // It's during the event, need to draw ball moving
-      kickBall(current_time_per_event, ball_pos[current_step][2]);
-      if (next_x != prev_x || next_y != prev_y) {
-        drawTrack(current_time_per_event);
+      if (ball_pos[current_step][4] != 1) {
+        kickBall(current_time_per_event, ball_pos[current_step][2]);
+        if (next_x != prev_x || next_y != prev_y) {
+          drawTrack(current_time_per_event);
+        }
+      } else {
+        removeBall();
       }
       if (ball_pos[current_step][4] == 0) {   // normal status
         drawRect(current_time_per_event, ball_pos[current_step][2]);

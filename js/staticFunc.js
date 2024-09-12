@@ -3,48 +3,52 @@
 function initEvent(data) {
     console.log("data: ", data);
     if (data.s?.n == "Football") {
-        if (data.c1?.n) homeTeamName = data.c1.n;
-        if (data.c2?.n) awayTeamName = data.c2.n;
-        teamNames['home'] = homeTeamName;
-        teamNames['away'] = awayTeamName;
-        if (homeTeamName.length > 16) {
-            teamNames['home'] = homeTeamName.substr(0, 13) + '...';
-        }
-        if (awayTeamName.length > 16) {
-            teamNames['away'] = awayTeamName.substr(0, 13) + '...';
-        }
-        $("#homeTeamName").text(teamNames['home']);
-        $("#awayTeamName").text(teamNames['away']);
-
-        if (data.c1?.k) $(".homePlayerBase").attr("fill", data.c1?.k?.TC);
-        if (data.c2?.k) $(".awayPlayerBase").attr("fill", data.c2?.k?.TC);
-        let homeKC = data.c1?.k?.KC?.split(",");
-        if (homeKC?.length > 3) $(".homePlayerLeftLongSleeve").attr("fill", homeKC[3]);
-        if (homeKC?.length > 3) $(".homePlayerRightLongSleeve").attr("fill", homeKC[3]);
-        let awayKC = data.c2?.k?.KC?.split(",");
-        if (awayKC?.length > 3) $(".awayPlayerLeftLongSleeve").attr("fill", awayKC[3]);
-        if (awayKC?.length > 3) $(".awayPlayerRightLongSleeve").attr("fill", awayKC[3]);
-
-        if (data?.ps?.TN?.score) {
-            homeScore = data?.ps?.TN?.score?.c1;
-            awayScore = data?.ps?.TN?.score?.c2;
-            $("#score").text(homeScore + '-' + awayScore);
-        }
-
-        if (data?.cl) {
-            gameTime = data?.cl?.m * 60 + data?.cl?.s;
-            showTime(gameTime);
-            if (data?.cl?.r == 0) isTimerRunning = data?.cl?.r;
-            let newDate = new Date;
-            startTime = Math.floor(newDate.getTime() / 1000) - gameTime;
-        }
-
-        if (data?.p?.n) {
-            $("#period").text(data?.p?.n);
-        }
+       initFootball(data);
     }
 }
 
+function initFootball(data) {
+    if (data.c1?.n) homeTeamName = data.c1.n;
+    if (data.c2?.n) awayTeamName = data.c2.n;
+    teamNames['home'] = homeTeamName;
+    teamNames['away'] = awayTeamName;
+    if (homeTeamName.length > 16) {
+        teamNames['home'] = homeTeamName.substr(0, 13) + '...';
+    }
+    if (awayTeamName.length > 16) {
+        teamNames['away'] = awayTeamName.substr(0, 13) + '...';
+    }
+    $("#homeTeamName").text(teamNames['home']);
+    $("#awayTeamName").text(teamNames['away']);
+
+    if (data.c1?.k) $(".homePlayerBase").attr("fill", data.c1?.k?.TC);
+    if (data.c2?.k) $(".awayPlayerBase").attr("fill", data.c2?.k?.TC);
+    let homeKC = data.c1?.k?.KC?.split(",");
+    if (homeKC?.length > 3) $(".homePlayerLeftLongSleeve").attr("fill", homeKC[3]);
+    if (homeKC?.length > 3) $(".homePlayerRightLongSleeve").attr("fill", homeKC[3]);
+    let awayKC = data.c2?.k?.KC?.split(",");
+    if (awayKC?.length > 3) $(".awayPlayerLeftLongSleeve").attr("fill", awayKC[3]);
+    if (awayKC?.length > 3) $(".awayPlayerRightLongSleeve").attr("fill", awayKC[3]);
+
+    if (data?.ps?.TN?.score) {
+        homeScore = data?.ps?.TN?.score?.c1;
+        awayScore = data?.ps?.TN?.score?.c2;
+        $("#score").text(homeScore + '-' + awayScore);
+    }
+
+    if (data?.cl) {
+        gameTime = data?.cl?.m * 60 + data?.cl?.s;
+        showTime(gameTime);
+        if (data?.cl?.r == 0) isTimerRunning = data?.cl?.r;
+        if (data?.cl?.r) isTimerRunning = data?.cl?.r;
+        let newDate = new Date;
+        startTime = Math.floor(newDate.getTime() / 1000) - gameTime;
+    }
+
+    if (data?.p?.n) {
+        $("#period").text(data?.p?.n);
+    }
+}
 function showTime(showTimeArgument) {
     if (showTimeArgument >= 0) {
         let showTimeMinute = Math.floor(showTimeArgument / 60);
@@ -113,6 +117,8 @@ function drawRect(time, team) {
     if (team == 1) {
         $("#awayStatePolygon").css("fill", "url(#none)");
         if (next_x < 0.5) {
+            document.getElementById('homeStatePolygon').style.fill =
+                'url(#homeSafe)'
             if (rectId == 0 || rectId == 1) {
                 document.getElementById('homeStatePolygon').points[1].x = 440
                 document.getElementById('homeStatePolygon').points[2].x = 480
@@ -466,20 +472,20 @@ function setBallByVC(vc) {
     } else if (vc == "21008") {     // Penalty
         let x = 0.1;
         setBallByXY(x, y, ["Penalty", ""], 1);
-    } else if (vc == "11009") {     // Direct Free Kick
+    } else if (vc == "11009") {     // Dangerous Free Kick
         let x = 0.6;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Direct Free Kick", ""], 2);
-    } else if (vc == "21009") {     // Direct Free Kick
+        setBallByXY(x, y, ["Dangerous Free Kick", ""], 2);
+    } else if (vc == "21009") {     // Dangerous Free Kick
         let x = 0.4;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Direct Free Kick", ""], 2);
+        setBallByXY(x, y, ["Dangerous Free Kick", ""], 2);
     } else if (vc == "11010") {     // Simple Free Kick
         let x = 0.6;
         if (hasXYpos) {
@@ -500,6 +506,8 @@ function setBallByVC(vc) {
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
+        } else {
+            x = ball_pos[ball_pos.length - 1][0];
         }
         setBallByXY(x, y, ["Throw", ""], 2);
     } else if (vc == "21024") {     // Throw
@@ -508,14 +516,25 @@ function setBallByVC(vc) {
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
+        } else {
+            x = ball_pos[ball_pos.length - 1][0];
         }
         setBallByXY(x, y, ["Throw", ""], 2);
+
     } else if (vc == "11003") {     // Goal
         let x = 0.95;
         setBallByXY(x, y, ["Goal", ""], 1);
     } else if (vc == "21003") {     // Goal
         let x = 0.05;
         setBallByXY(x, y, ["Goal", ""], 1);
+
+    } else if (vc == "11242") {     // Disallowed Goal
+        let x = 0.95;
+        setBallByXY(x, y, ["Disallowed Goal", ""], 1);
+    } else if (vc == "21242") {     // Disallowed Goal
+        let x = 0.05;
+        setBallByXY(x, y, ["Disallowed Goal", ""], 1);
+
     } else if (vc == "11005") {     // Yellow Card
         let x = 0.6;
         setBallByXY(x, y, ["Yellow Card", ""], 1);
@@ -528,34 +547,34 @@ function setBallByVC(vc) {
     } else if (vc == "21006") {     // Red Card
         let x = 0.6;
         setBallByXY(x, y, ["Red Card", ""], 1);
-    } else if (vc == "11011") {     // Shot on goal
+    } else if (vc == "11011") {     // Shot on target
         let x = 0.9;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Shot on goal", ""], 2);
-    } else if (vc == "21011") {     // Shot on goal
+        setBallByXY(x, y, ["Shot on target", ""], 2);
+    } else if (vc == "21011") {     // Shot on target
         let x = 0.1;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Shot on goal", ""], 2);
-    } else if (vc == "11012") {     // Shot off goal
+        setBallByXY(x, y, ["Shot on target", ""], 2);
+    } else if (vc == "11012") {     // Shot off target
         let x = 0.9;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Shot off goal", ""], 2);
-    } else if (vc == "21012") {     // Shot off goal
+        setBallByXY(x, y, ["Shot off target", ""], 2);
+    } else if (vc == "21012") {     // Shot off target
         let x = 0.1;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Shot off goal", ""], 2);
+        setBallByXY(x, y, ["Shot off target", ""], 2);
     } else if (vc == "11013") {     // Substitution
         let x = 0.6;
         setBallByXY(x, y, ["Substitution", ""], 1);
@@ -576,6 +595,58 @@ function setBallByVC(vc) {
             y = setlastposy;
         }
         setBallByXY(x, y, ["Kick off", ""], 2);
+    } else if (vc == "11000") {     // Dangerous Attack
+        let x = 0.8;
+        if (hasXYpos) {
+            x = setlastposx;
+            y = setlastposy;
+        }
+        setBallByXY(x, y, ["", ""], 0);
+    } else if (vc == "21000") {     // Dangerous Attack
+        let x = 0.2;
+        if (hasXYpos) {
+            x = setlastposx;
+            y = setlastposy;
+        }
+        setBallByXY(x, y, ["", ""], 0);
+
+    } else if (vc == "11234") {     // Off Side
+        let x = 0.7;
+        if (hasXYpos) {
+            x = setlastposx;
+            y = setlastposy;
+        }
+        setBallByXY(x, y, ["Off Side", ""], 1);
+    } else if (vc == "21234") {     // Off Side
+        let x = 0.3;
+        if (hasXYpos) {
+            x = setlastposx;
+            y = setlastposy;
+        }
+        setBallByXY(x, y, ["Off Side", ""], 1);
+
+    } else if (vc == "1026") {     // Stop Page Time
+        let x = 0.5;
+        if (hasXYpos) {
+            x = setlastposx;
+            y = setlastposy;
+        }
+        setBallByXY(x, y, ["Stop Page Time", ""], 1);
+
+    } else if (vc == "1015") {     // Half Time
+        let x = 0.5;
+        setBallByXY(x, y, ["Half Time", homeScore + "-" + awayScore], 1);
+
+    } else if (vc == "1017") {     // Full Time
+        let x = 0.5;
+        setBallByXY(x, y, ["Full Time", homeScore + "-" + awayScore], 1);
+
+    } else if (vc == "11025") {     // Injury
+        let x = 0.5;
+        setBallByXY(x, y, ["Injury", ""], 1);
+    } else if (vc == "21025") {     // Injury
+        let x = 0.5;
+        setBallByXY(x, y, ["Injury", ""], 1);
     }
 }
 
@@ -687,6 +758,7 @@ function showAction(gameState) {
 
     if (team == 1) {
         $('#homeKickPolygon').css('fill', 'url(#homeKick)');
+        $('#awayKickPolygon').css('fill', 'url(#none)');
         if (gameState[1] < 0.3 && gameState[0] > 0.6) {
             $('#homeKickPolygon').css('fill', 'url(#homeTopKick)');
         }
@@ -698,6 +770,7 @@ function showAction(gameState) {
         points[0].y = y;
     } else {
         $('#awayKickPolygon').css('fill', 'url(#awayKick)');
+        $('#homeKickPolygon').css('fill', 'url(#none)');
         if (gameState[1] < 0.3 && gameState[0] < 0.6) {
             $('#awayKickPolygon').css('fill', 'url(#awayTopKick)');
         }
@@ -718,4 +791,9 @@ function resetAction() {
     $('#stateBoardLine').attr('stroke-opacity', 0);
     $('#homeKickPolygon').css('fill', 'url(#none)');
     $('#awayKickPolygon').css('fill', 'url(#none)');
+}
+
+function removeBall() {
+    $("#ball").attr("x", -100);
+    $("#ball").attr("y", -100);
 }

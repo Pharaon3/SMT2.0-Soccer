@@ -17,6 +17,9 @@ let hasXYpos = false;
 let currentBallPossessionTeam = 1; // 1: home, 2: away
 let rectId = 0, currentRectId = 0; // 0: none, 1: homeSafe, 2: homeAttack, 3: homeDangerousAttack, -3: awaySafe, -2: awayAttack, -1: awayDangerousAttack;
 
+let noTimeRunningState = 0; // 0: default, running, 1: match not started, 2: half time, 3: match ended, 4: other.
+let matchStartTime;
+
 var lineX = [
     mapnx(0.5, 0.5),
     mapnx(0.5, 0.5),

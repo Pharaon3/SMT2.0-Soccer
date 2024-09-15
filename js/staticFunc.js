@@ -48,6 +48,20 @@ function initFootball(data) {
     if (data?.p?.n) {
         $("#period").text(data?.p?.n);
     }
+
+    if (data?.mdt) {
+        matchStartTime = new Date(data?.mdt);
+    }
+    if (data?.mdt && data?.cl?.m == 0 && data?.cl?.s == 0 && data?.cl?.r == 1) {
+        console.log("Match Not Started");
+        noTimeRunningState = 1;
+        setEventLabel(["Match Not Started", ""], 1, null);
+    }
+    if (data?.mdt && data?.cl?.m == 45 && data?.cl?.s == 0 && data?.cl?.r == 1) {
+        console.log("Half Time");
+        noTimeRunningState = 2;
+        setEventLabel(["Half Time", ""], 1, null);
+    }
 }
 function showTime(showTimeArgument) {
     if (showTimeArgument >= 0) {

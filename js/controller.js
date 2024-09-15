@@ -70,6 +70,24 @@ function countdown() {
         gameTime = Math.floor(newDate.getTime() / 1000) - startTime;
         showTime(gameTime);
       }
+    } else {
+      resetRect();
+      resetTrack();
+      resetState();
+      resetAction();
+      removeBall();
+      if (noTimeRunningState == 1) {
+        var now = new Date();
+        var difference = matchStartTime - now;
+        var seconds = Math.floor((difference / 1000) % 60);
+        var minutes = Math.floor((difference / (1000 * 60)) % 60);
+        var hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        var days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        setEventLabel(["Match Not Started", `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`], 1, null);
+      }
+      if (noTimeRunningState == 2) {
+        setEventLabel(["Half Time", homeScore + "-" + awayScore], 1, null);
+      }
     }
   }, framePeriod)
 }

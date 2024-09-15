@@ -70,8 +70,6 @@ function setEventLabel(eventTitle, team, detail) {
     $("#bottom_text").text(eventTitle[1] || teamNames[team == 1 ? "home" : "away"]);
     let textwidth = Math.max($('#center_text')[0].getBoundingClientRect().width, $('#bottom_text')[0].getBoundingClientRect().width, MINTEXTWIDTH) + 40;
     $("#center_rect").attr("x", pitch_center_x - textwidth / 2);
-    $("#centerImage").attr("x", pitch_center_x + textwidth / 2 + 20);
-    $("#centerImage").attr("href", "./media/" + detail?.svg);
     if (detail?.color) {
         $("#center_text").attr("fill", detail.color);
     } else {
@@ -83,6 +81,8 @@ function setEventLabel(eventTitle, team, detail) {
         $("#centerrectdiv").attr("x1", pitch_center_x + textwidth / 2);
         $("#centerrectdiv").attr("x2", pitch_center_x + textwidth / 2);
         $("#centerrectdiv").attr("stroke-opacity", 0.5);
+        $("#centerImage").attr("href", "./media/" + detail?.svg);
+        $("#centerImage").attr("x", pitch_center_x + textwidth / 2 + 20);
     } else {
         $("#centerImage").css("display", "none");
         $("#center_rect").attr("width", textwidth);

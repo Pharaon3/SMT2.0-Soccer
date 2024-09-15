@@ -63,17 +63,39 @@ function stopMatch() {
     isTimerRunning = 1;
 }
 
-function setEventLabel(eventTitle, team) {
+function setEventLabel(eventTitle, team, detail) {
     if (eventTitle[0] == "") $("#center_rect").attr("fill-opacity", 0);
-    else $("#center_rect").attr("fill-opacity", 0.3);
+    else $("#center_rect").attr("fill-opacity", 0.7);
     $("#center_text").text(eventTitle[0]);
     $("#bottom_text").text(eventTitle[1] || teamNames[team == 1 ? "home" : "away"]);
+    let textwidth = Math.max($('#center_text')[0].getBoundingClientRect().width, $('#bottom_text')[0].getBoundingClientRect().width, MINTEXTWIDTH) + 40;
+    $("#center_rect").attr("x", pitch_center_x - textwidth / 2);
+    $("#centerImage").attr("x", pitch_center_x + textwidth / 2 + 20);
+    $("#centerImage").attr("href", "./media/" + detail?.svg);
+    if (detail?.color) {
+        $("#center_text").attr("fill", detail.color);
+    } else {
+        $("#center_text").attr("fill", DEFAULTCOLOR);
+    }
+    if (detail?.svg) {
+        $("#centerImage").css("display", "block");
+        $("#center_rect").attr("width", textwidth + 40 + 70);
+        $("#centerrectdiv").attr("x1", pitch_center_x + textwidth / 2);
+        $("#centerrectdiv").attr("x2", pitch_center_x + textwidth / 2);
+        $("#centerrectdiv").attr("stroke-opacity", 0.5);
+    } else {
+        $("#centerImage").css("display", "none");
+        $("#center_rect").attr("width", textwidth);
+        $("#centerrectdiv").attr("stroke-opacity", 0);
+    }
 }
 
 function resetEventLabel() {
     $("#center_rect").attr("fill-opacity", 0);
     $("#center_text").text("");
     $("#bottom_text").text("");
+    $("#centerImage").css("display", "none");
+    $("#centerrectdiv").attr("stroke-opacity", 0);
 }
 function capitalizeWords(arr) {
     return arr.map(word => {
@@ -523,30 +545,66 @@ function setBallByVC(vc) {
 
     } else if (vc == "11003") {     // Goal
         let x = 0.95;
-        setBallByXY(x, y, ["Goal", ""], 1);
+        setBallByXY(x, y, ["Goal", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-goal.svg",
+            "centertextposition": DEFAULTCENTERTEXTPOSITION,
+            "bottomtextposition": DEFAULTBOTTOMTEXTPOSITION,
+            "svgposition": [600, 420, 70]
+        });
     } else if (vc == "21003") {     // Goal
         let x = 0.05;
-        setBallByXY(x, y, ["Goal", ""], 1);
+        setBallByXY(x, y, ["Goal", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-goal.svg",
+            "centertextposition": DEFAULTCENTERTEXTPOSITION,
+            "bottomtextposition": DEFAULTBOTTOMTEXTPOSITION,
+            "svgposition": [600, 420, 70]
+        });
 
     } else if (vc == "11242") {     // Disallowed Goal
         let x = 0.95;
-        setBallByXY(x, y, ["Disallowed Goal", ""], 1);
+        setBallByXY(x, y, ["Disallowed Goal", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-disgoal.svg",
+            "centertextposition": DEFAULTCENTERTEXTPOSITION,
+            "bottomtextposition": DEFAULTBOTTOMTEXTPOSITION,
+            "svgposition": [600, 420, 70]
+        });
     } else if (vc == "21242") {     // Disallowed Goal
         let x = 0.05;
-        setBallByXY(x, y, ["Disallowed Goal", ""], 1);
+        setBallByXY(x, y, ["Disallowed Goal", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-disgoal.svg",
+            "centertextposition": DEFAULTCENTERTEXTPOSITION,
+            "bottomtextposition": DEFAULTBOTTOMTEXTPOSITION,
+            "svgposition": [600, 420, 70]
+        });
 
     } else if (vc == "11005") {     // Yellow Card
         let x = 0.6;
-        setBallByXY(x, y, ["Yellow Card", ""], 1);
+        setBallByXY(x, y, ["Yellow Card", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "yellowcard.svg"
+        });
     } else if (vc == "21005") {     // Yellow Card
         let x = 0.6;
-        setBallByXY(x, y, ["Yellow Card", ""], 1);
+        setBallByXY(x, y, ["Yellow Card", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "yellowcard.svg"
+        });
     } else if (vc == "11006") {     // Red Card
         let x = 0.6;
-        setBallByXY(x, y, ["Red Card", ""], 1);
+        setBallByXY(x, y, ["Red Card", ""], 1, {
+            "color": REDCOLOR,
+            "svg": "redcard.svg"
+        });
     } else if (vc == "21006") {     // Red Card
         let x = 0.6;
-        setBallByXY(x, y, ["Red Card", ""], 1);
+        setBallByXY(x, y, ["Red Card", ""], 1, {
+            "color": REDCOLOR,
+            "svg": "redcard.svg"
+        });
     } else if (vc == "11011") {     // Shot on target
         let x = 0.9;
         if (hasXYpos) {
@@ -577,10 +635,16 @@ function setBallByVC(vc) {
         setBallByXY(x, y, ["Shot off target", ""], 2);
     } else if (vc == "11013") {     // Substitution
         let x = 0.6;
-        setBallByXY(x, y, ["Substitution", ""], 1);
+        setBallByXY(x, y, ["Substitution", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-substitution.svg"
+        });
     } else if (vc == "21013") {     // Substitution
         let x = 0.6;
-        setBallByXY(x, y, ["Substitution", ""], 1);
+        setBallByXY(x, y, ["Substitution", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-substitution.svg"
+        });
     } else if (vc == "11014") {     // Kick off
         let x = 0.8;
         if (hasXYpos) {
@@ -616,14 +680,20 @@ function setBallByVC(vc) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Off Side", ""], 1);
+        setBallByXY(x, y, ["Off Side", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-offside.svg"
+        });
     } else if (vc == "21234") {     // Off Side
         let x = 0.3;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Off Side", ""], 1);
+        setBallByXY(x, y, ["Off Side", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-offside.svg"
+        });
 
     } else if (vc == "1026") {     // Stop Page Time
         let x = 0.5;
@@ -643,10 +713,16 @@ function setBallByVC(vc) {
 
     } else if (vc == "11025") {     // Injury
         let x = 0.5;
-        setBallByXY(x, y, ["Injury", ""], 1);
+        setBallByXY(x, y, ["Injury", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-injury.svg"
+        });
     } else if (vc == "21025") {     // Injury
         let x = 0.5;
-        setBallByXY(x, y, ["Injury", ""], 1);
+        setBallByXY(x, y, ["Injury", ""], 1, {
+            "color": DEFAULTCOLOR,
+            "svg": "soccer-injury.svg"
+        });
     }
 }
 

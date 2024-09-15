@@ -20,7 +20,7 @@ function load() {
     }
   };
 
-  // countdown();
+  countdown();
 }
 
 function updateEvent(data) {
@@ -73,8 +73,8 @@ function countdown() {
     }
   }, framePeriod)
 }
-function setBallByXY(x, y, eventTexts, stateType = 0) { // stateType 0: no text, 1: center text, 2: ball text
-  ball_pos.push([x, y, currentBallPossessionTeam, eventTexts, stateType]);
+function setBallByXY(x, y, eventTexts, stateType = 0, detail) { // stateType 0: no text, 1: center text, 2: ball text
+  ball_pos.push([x, y, currentBallPossessionTeam, eventTexts, stateType, detail]);
 }
 
 function kickBall(time, team) {
@@ -95,7 +95,7 @@ function initEachEvent() {
     // bounceBall(current_step);
   }
   if (ball_pos[current_step][4] == 1) {   // big action
-    setEventLabel(ball_pos[current_step][3], ball_pos[current_step][2]);
+    setEventLabel(ball_pos[current_step][3], ball_pos[current_step][2], ball_pos[current_step][5]);
   } else {
     resetEventLabel();
   }

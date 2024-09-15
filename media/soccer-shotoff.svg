@@ -2,7 +2,7 @@
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 width="800px" height="800px" viewBox="0 0 1120 1000"
+	 width="800px" height="800px" viewBox="0 0 1230 1000"
 	 xml:space="preserve">
 <g>
 	<g>
@@ -77,9 +77,9 @@
 			c-0.197-0.127-0.404-0.229-0.605-0.346V264.726c1.107-0.646,2.166-1.409,3.143-2.32L950,191.189V804.131L950,804.131z"/>
 	</g>
 	<g transform='translate(300, -200)'>
-		<circle cx="700" cy="400" r="80" fill="none" stroke="red" stroke-width="30"/>
-		<line x1="700" y1="300" x2="700" y2="500" stroke="red" stroke-width="30" stroke-linecap="round"/>
-		<line x1="600" y1="400" x2="800" y2="400" stroke="red" stroke-width="30" stroke-linecap="round"/>
+		<circle cx="700" cy="400" r="150" fill="none" stroke="red" stroke-width="50"/>
+		<line x1="700" y1="200" x2="700" y2="600" stroke="red" stroke-width="50" stroke-linecap="round"/>
+		<line x1="500" y1="400" x2="900" y2="400" stroke="red" stroke-width="50" stroke-linecap="round"/>
 	</g>
 </g>
 </svg>

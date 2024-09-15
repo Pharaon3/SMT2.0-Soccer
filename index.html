@@ -445,8 +445,8 @@
           <g id="BallGroup">
             <polygon id="homeKickPolygon" points="500, 500 726, 476 782, 536" style="fill: url(#none);" />
             <polygon id="awayKickPolygon" points="500, 500 210, 476 160, 536" style="fill: url(#none);" />
-            <ellipse id="ball_shadow" cx="475" cy="505" rx="5" ry="5" stroke="none" fill="grey"
-              style="fill: grey; fill-opacity: 0.5;" />
+            <!-- <ellipse id="ball_shadow" cx="475" cy="505" rx="5" ry="5" stroke="none" fill="grey"
+              style="fill: grey; fill-opacity: 0.5;" /> -->
             <image id="ball" href="./media/ball.png" x="467" y="489" width="16" />
           </g>
           <g id='teams'>
@@ -516,30 +516,26 @@
               text-anchor="end">
             </text>
 
-            <rect id="center_rect" x="270" y="380" width="410" height="140" style="
+            <rect id="center_rect" x="270" y="380" width="410" height="120" style="
                     fill: black;
                     stroke: grey;
                     stroke-width: 0;
                     stroke-opacity: 0;
-                  " fill-opacity='0.7' />
-            <line id="centerrectdiv" x1="580" y1="405" x2="580" y2="490" style="
+                  " fill-opacity='0' />
+            <line id="centerrectdiv" x1="580" y1="400" x2="580" y2="480" style="
                   stroke: rgb(185, 236, 145);
                   stroke-width: 2;
-                  stroke-opacity: 0.5;
-                " />
-            <rect id="card" x="605" y="410" width="50" height="75" rx="5" ry="5" style="
-                  fill: rgb(255, 37, 37);
-                " fill-opacity='0' />
-            <!-- <image href="./media/soccer-goal.svg" x="600" y="420" width="70" /> -->
-            <image href="./media/soccer-shotoff.svg" x="600" y="415" width="70"/>
+                "  stroke-opacity='0'/>
+            <image id="centerImage" href="./media/soccer-goal.svg" x="600" y="405" width="70" style="display: none;" />
+            <!-- <image href="./media/soccer-shotoff.svg" x="600" y="415" width="70"/> -->
             <!-- <text id="center_text" fill="#ff8" font-size="38" font-family="InriaSans" x="475" y="425" fill-opacity="1"
               text-anchor="middle">GOAL</text>
             <text id="bottom_text" fill="#fff" font-size="30" font-family="InriaSans" x="475" y="480" fill-opacity="0.7"
               text-anchor="middle">Bicskei</text> -->
-            <text id="center_text" fill="#ff8" font-size="38" font-family="InriaSans" x="425" y="425" fill-opacity="1"
-              text-anchor="middle">SHOT OFF TARGET</text>
-            <text id="bottom_text" fill="#fff" font-size="30" font-family="InriaSans" x="425" y="480" fill-opacity="0.7"
-              text-anchor="middle">Bicskei</text>
+            <text id="center_text" fill="#ff8" font-size="38" font-family="InriaSans" x="475" y="425" fill-opacity="1"
+              text-anchor="middle"></text>
+            <text id="bottom_text" fill="#fff" font-size="36" font-family="InriaSans" x="475" y="480" fill-opacity="0.7"
+              text-anchor="middle"></text>
           </g>
         </g>
       </g>

@@ -102,6 +102,12 @@ function kickBall(time, team) {
   let y = prev_y + (next_y - prev_y) * time;
   $("#ball").attr("x", mapx(x, y));
   $("#ball").attr("y", mapy(x, y) - 30 + 30 * (time - 0.5) * (time - 0.5) * 4);
+  
+  $('#ball_shadow').attr('cx', mapnx(x, y));
+  $('#ball_shadow').attr('cy', mapny(x, y));
+  $('#ball_shadow').attr('rx', 6 * Math.max(1 - time , time));
+  $('#ball_shadow').attr('ry', 3 * Math.max(1 - time , time));
+  $("#ball_shadow").attr('fill-opacity', 0.7 * Math.max(1 - time , time));
 }
 
 function initEachEvent() {

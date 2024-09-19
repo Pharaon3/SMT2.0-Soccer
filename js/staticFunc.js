@@ -386,6 +386,7 @@ function resetRect() {
     $("#awayStatePolygon").css("fill", "url(#none)");
 }
 function drawTrack(time) {
+    $("#BallTrack").css("display", "block");
     x_l = mapnx(prev_x, prev_y) + (mapnx(next_x, next_y) - mapnx(prev_x, prev_y)) * time;
     y_l = mapny(prev_x, prev_y) + (mapny(next_x, next_y) - mapny(prev_x, prev_y)) * time;
     $('#ballLine1').attr({
@@ -440,7 +441,7 @@ function resetTrack() {
     lineY[2] = mapny(prev_x, prev_y);
     lineY[1] = mapny(prev_x, prev_y);
     lineY[0] = mapny(prev_x, prev_y);
-    drawTrack(0);
+    $("#BallTrack").css("display", "none");
 }
 
 function setBallByVC(vc, playerName="") {
@@ -930,6 +931,8 @@ function resetAction() {
 function removeBall() {
     $("#ball").attr("x", -100);
     $("#ball").attr("y", -100);
+    $('#ball_shadow').attr("cx", -100);
+    $('#ball_shadow').attr("cy", -100);
 }
 
 function convertTo3Line() {

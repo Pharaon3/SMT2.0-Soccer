@@ -49,15 +49,15 @@ function initFootball(data) {
         $("#period").text(data?.p?.n);
     }
 
-    if (data?.mdt) {
-        matchStartTime = new Date(data?.mdt);
+    if (data?.et) {
+        matchStartTime = new Date(data?.et);
     }
-    if (data?.mdt && data?.cl?.m == 0 && data?.cl?.s == 0 && data?.cl?.r == 1) {
+    if (data?.et && data?.cl?.m == 0 && data?.cl?.s == 0 && data?.cl?.r == 1) {
         console.log("Match Not Started");
         noTimeRunningState = 1;
         setEventLabel(["Match Not Started", ""], 1, null);
     }
-    if (data?.mdt && data?.cl?.m == 45 && data?.cl?.s == 0 && data?.cl?.r == 1) {
+    if (data?.et && data?.cl?.m == 45 && data?.cl?.s == 0 && data?.cl?.r == 1) {
         console.log("Half Time");
         noTimeRunningState = 2;
         setEventLabel(["Half Time", ""], 1, null);
@@ -443,7 +443,7 @@ function resetTrack() {
     drawTrack(0);
 }
 
-function setBallByVC(vc) {
+function setBallByVC(vc, playerName="") {
     currentBallPossessionTeam = vc[0];
     let y = 0.5;
     if (vc == "11002") {            // Possession
@@ -452,90 +452,90 @@ function setBallByVC(vc) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["", ""], 0);
+        setBallByXY(playerName, x, y, ["", ""], 0);
     } else if (vc == "21002") {     // Possession
         let x = 0.6;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["", ""], 0);
+        setBallByXY(playerName, x, y, ["", ""], 0);
     } else if (vc == "11004") {     // Cornor kick
         let x = 1;
         y = 1;
-        setBallByXY(x, y, ["Cornor Kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Cornor Kick", ""], 2);
     } else if (vc == "21004") {     // Cornor kick
         let x = 0;
         y = 0;
-        setBallByXY(x, y, ["Cornor Kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Cornor Kick", ""], 2);
     } else if (vc == "11010") {     // Free kick
         let x = 0.4;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Free kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Free kick", ""], 2);
     } else if (vc == "21010") {     // Free kick
         let x = 0.6;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Free kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Free kick", ""], 2);
     } else if (vc == "11001") {     // Attack
         let x = 0.6;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["", ""], 0);
+        setBallByXY(playerName, x, y, ["", ""], 0);
     } else if (vc == "21001") {     // Attack
         let x = 0.4;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["", ""], 0);
+        setBallByXY(playerName, x, y, ["", ""], 0);
     } else if (vc == "11007") {     // Goal kick
         let x = 0.1;
-        setBallByXY(x, y, ["Goal kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Goal kick", ""], 2);
     } else if (vc == "21007") {     // Goal kick
         let x = 0.9;
-        setBallByXY(x, y, ["Goal kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Goal kick", ""], 2);
     } else if (vc == "11008") {     // Penalty
         let x = 0.9;
-        setBallByXY(x, y, ["Penalty", ""], 1);
+        setBallByXY(playerName, x, y, ["Penalty", ""], 1);
     } else if (vc == "21008") {     // Penalty
         let x = 0.1;
-        setBallByXY(x, y, ["Penalty", ""], 1);
+        setBallByXY(playerName, x, y, ["Penalty", ""], 1);
     } else if (vc == "11009") {     // Dangerous Free Kick
         let x = 0.6;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Dangerous Free Kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Dangerous Free Kick", ""], 2);
     } else if (vc == "21009") {     // Dangerous Free Kick
         let x = 0.4;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Dangerous Free Kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Dangerous Free Kick", ""], 2);
     } else if (vc == "11010") {     // Simple Free Kick
         let x = 0.6;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Simple Free Kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Simple Free Kick", ""], 2);
     } else if (vc == "21010") {     // Simple Free Kick
         let x = 0.4;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Simple Free Kick", ""], 2);
+        setBallByXY(playerName, x, y, ["Simple Free Kick", ""], 2);
     } else if (vc == "11024") {     // Throw
         let x = 0.6;
         y = 0;
@@ -545,7 +545,7 @@ function setBallByVC(vc) {
         } else {
             x = ball_pos[ball_pos.length - 1][0];
         }
-        setBallByXY(x, y, ["Throw", ""], 2);
+        setBallByXY(playerName, x, y, ["Throw", ""], 2);
     } else if (vc == "21024") {     // Throw
         let x = 0.4;
         y = 1;
@@ -555,11 +555,11 @@ function setBallByVC(vc) {
         } else {
             x = ball_pos[ball_pos.length - 1][0];
         }
-        setBallByXY(x, y, ["Throw", ""], 2);
+        setBallByXY(playerName, x, y, ["Throw", ""], 2);
 
     } else if (vc == "11003") {     // Goal
         let x = 0.95;
-        setBallByXY(x, y, ["Goal", ""], 1, {
+        setBallByXY(playerName, x, y, ["Goal", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-goal.svg",
             "centertextposition": DEFAULTCENTERTEXTPOSITION,
@@ -568,7 +568,7 @@ function setBallByVC(vc) {
         });
     } else if (vc == "21003") {     // Goal
         let x = 0.05;
-        setBallByXY(x, y, ["Goal", ""], 1, {
+        setBallByXY(playerName, x, y, ["Goal", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-goal.svg",
             "centertextposition": DEFAULTCENTERTEXTPOSITION,
@@ -578,7 +578,7 @@ function setBallByVC(vc) {
 
     } else if (vc == "11242") {     // Disallowed Goal
         let x = 0.95;
-        setBallByXY(x, y, ["Disallowed Goal", ""], 1, {
+        setBallByXY(playerName, x, y, ["Disallowed Goal", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-disgoal.svg",
             "centertextposition": DEFAULTCENTERTEXTPOSITION,
@@ -587,7 +587,7 @@ function setBallByVC(vc) {
         });
     } else if (vc == "21242") {     // Disallowed Goal
         let x = 0.05;
-        setBallByXY(x, y, ["Disallowed Goal", ""], 1, {
+        setBallByXY(playerName, x, y, ["Disallowed Goal", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-disgoal.svg",
             "centertextposition": DEFAULTCENTERTEXTPOSITION,
@@ -597,25 +597,25 @@ function setBallByVC(vc) {
 
     } else if (vc == "11005") {     // Yellow Card
         let x = 0.6;
-        setBallByXY(x, y, ["Yellow Card", ""], 1, {
+        setBallByXY(playerName, x, y, ["Yellow Card", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "yellowcard.svg"
         });
     } else if (vc == "21005") {     // Yellow Card
         let x = 0.6;
-        setBallByXY(x, y, ["Yellow Card", ""], 1, {
+        setBallByXY(playerName, x, y, ["Yellow Card", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "yellowcard.svg"
         });
     } else if (vc == "11006") {     // Red Card
         let x = 0.6;
-        setBallByXY(x, y, ["Red Card", ""], 1, {
+        setBallByXY(playerName, x, y, ["Red Card", ""], 1, {
             "color": REDCOLOR,
             "svg": "redcard.svg"
         });
     } else if (vc == "21006") {     // Red Card
         let x = 0.6;
-        setBallByXY(x, y, ["Red Card", ""], 1, {
+        setBallByXY(playerName, x, y, ["Red Card", ""], 1, {
             "color": REDCOLOR,
             "svg": "redcard.svg"
         });
@@ -625,37 +625,37 @@ function setBallByVC(vc) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Shot on target", ""], 2);
+        setBallByXY(playerName, x, y, ["Shot on target", ""], 2);
     } else if (vc == "21011") {     // Shot on target
         let x = 0.1;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Shot on target", ""], 2);
+        setBallByXY(playerName, x, y, ["Shot on target", ""], 2);
     } else if (vc == "11012") {     // Shot off target
         let x = 0.9;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Shot off target", ""], 2);
+        setBallByXY(playerName, x, y, ["Shot off target", ""], 2);
     } else if (vc == "21012") {     // Shot off target
         let x = 0.1;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Shot off target", ""], 2);
+        setBallByXY(playerName, x, y, ["Shot off target", ""], 2);
     } else if (vc == "11013") {     // Substitution
         let x = 0.6;
-        setBallByXY(x, y, ["Substitution", ""], 1, {
+        setBallByXY(playerName, x, y, ["Substitution", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-substitution.svg"
         });
     } else if (vc == "21013") {     // Substitution
         let x = 0.6;
-        setBallByXY(x, y, ["Substitution", ""], 1, {
+        setBallByXY(playerName, x, y, ["Substitution", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-substitution.svg"
         });
@@ -665,28 +665,28 @@ function setBallByVC(vc) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Kick off", ""], 2);
+        setBallByXY(playerName, x, y, ["Kick off", ""], 2);
     } else if (vc == "21014") {     // Kick off
         let x = 0.2;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Kick off", ""], 2);
+        setBallByXY(playerName, x, y, ["Kick off", ""], 2);
     } else if (vc == "11000") {     // Dangerous Attack
         let x = 0.8;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["", ""], 0);
+        setBallByXY(playerName, x, y, ["", ""], 0);
     } else if (vc == "21000") {     // Dangerous Attack
         let x = 0.2;
         if (hasXYpos) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["", ""], 0);
+        setBallByXY(playerName, x, y, ["", ""], 0);
 
     } else if (vc == "11234") {     // Off Side
         let x = 0.7;
@@ -694,7 +694,7 @@ function setBallByVC(vc) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Off Side", ""], 1, {
+        setBallByXY(playerName, x, y, ["Off Side", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-offside.svg"
         });
@@ -704,7 +704,7 @@ function setBallByVC(vc) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Off Side", ""], 1, {
+        setBallByXY(playerName, x, y, ["Off Side", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-offside.svg"
         });
@@ -715,32 +715,32 @@ function setBallByVC(vc) {
             x = setlastposx;
             y = setlastposy;
         }
-        setBallByXY(x, y, ["Stop Page Time", ""], 1);
+        setBallByXY(playerName, x, y, ["Stop Page Time", ""], 1);
 
     } else if (vc == "1015") {     // Half Time
         let x = 0.5;
-        setBallByXY(x, y, ["Half Time", homeScore + "-" + awayScore], 1);
+        setBallByXY(playerName, x, y, ["Half Time", homeScore + "-" + awayScore], 1);
 
     } else if (vc == "1017") {     // Full Time
         let x = 0.5;
-        setBallByXY(x, y, ["Full Time", homeScore + "-" + awayScore], 1);
+        setBallByXY(playerName, x, y, ["Full Time", homeScore + "-" + awayScore], 1);
 
     } else if (vc == "11025") {     // Injury
         let x = 0.5;
-        setBallByXY(x, y, ["Injury", ""], 1, {
+        setBallByXY(playerName, x, y, ["Injury", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-injury.svg"
         });
     } else if (vc == "21025") {     // Injury
         let x = 0.5;
-        setBallByXY(x, y, ["Injury", ""], 1, {
+        setBallByXY(playerName, x, y, ["Injury", ""], 1, {
             "color": DEFAULTCOLOR,
             "svg": "soccer-injury.svg"
         });
     }
 }
 
-function displayState(team) {
+function displayState(team, playerName="") {
     let statePositionX, statePositionY;
     if (team == 1) {
         $('#homeStateLabels').show();
@@ -767,8 +767,17 @@ function displayState(team) {
         }
 
         $('#homeStateLabels').attr('transform', 'translate(' + statePositionX + ',' + statePositionY + ')');
-        $('#homeStateBoard').attr('width', Math.max($('#homeName').get(0).getBBox().width, $('#homeState').get(0).getBBox().width) + 70);
-        $('#homeStateBoard').attr('x', -Math.max($('#homeName').get(0).getBBox().width, $('#homeState').get(0).getBBox().width) - 70);
+        if (playerName) {
+            $('#homeStateBoard').attr('width', Math.max($('#homeName').get(0).getBBox().width, $('#homeState').get(0).getBBox().width) + 90);
+            $('#homeStateBoard').attr('x', -Math.max($('#homeName').get(0).getBBox().width, $('#homeState').get(0).getBBox().width) - 90);
+            $("#homePlayerName").text(playerName);
+            convertTo3Line();
+        } else {
+            $('#homeStateBoard').attr('width', Math.max($('#homeName').get(0).getBBox().width, $('#homeState').get(0).getBBox().width) + 70);
+            $('#homeStateBoard').attr('x', -Math.max($('#homeName').get(0).getBBox().width, $('#homeState').get(0).getBBox().width) - 70);
+            $("#homePlayerName").text("");
+            convertTo2Line();
+        }
     } else {
         $('#homeStateLabels').hide();
         $('#awayStateLabels').show();
@@ -794,7 +803,15 @@ function displayState(team) {
         }
 
         $('#awayStateLabels').attr('transform', 'translate(' + statePositionX + ',' + statePositionY + ')');
-        $('#awayStateBoard').attr('width', Math.max($('#awayName').get(0).getBBox().width, $('#awayState').get(0).getBBox().width) + 70);
+        if (playerName) {
+            $('#awayStateBoard').attr('width', Math.max($('#awayName').get(0).getBBox().width, $('#awayState').get(0).getBBox().width) + 90);
+            $("#awayPlayerName").text(playerName);
+            convertTo3Line();
+        } else {
+            $('#awayStateBoard').attr('width', Math.max($('#awayName').get(0).getBBox().width, $('#awayState').get(0).getBBox().width) + 70);
+            $("#awayPlayerName").text("");
+            convertTo2Line();
+        }
     }
 }
 
@@ -806,34 +823,60 @@ function showAction(gameState) {
     // text, team, x, y
     let text = gameState[3][0];
     let team = gameState[2];
+    let playerNAME = gameState[6];
     let x = mapnx(gameState[0], gameState[1]);
     let y = mapny(gameState[0], gameState[1]);
     var centerText = capitalizeWords(text.split(" ")).join('');
     $('#ballState').text(centerText);
     $('#holder').text(teamNames[team == 1 ? "home" : "away"].toUpperCase());
+    $('#holderName').text(playerNAME);
 
     var rectWidth = $('#ballState').get(0).getBBox().width;
     rectWidth = Math.max(rectWidth, $('#holder').get(0).getBBox().width) + 20;
 
-    $('#actionBoard').attr('width', rectWidth)
-        .attr('height', 50)
-        .attr('x', x - rectWidth - 10)
-        .attr('y', y - 50 - 10);
+    if (playerNAME) {
+        $('#actionBoard').attr('width', rectWidth)
+            .attr('height', 75)
+            .attr('x', x - rectWidth - 10)
+            .attr('y', y - 50 - 10 - 25);
 
-    $('#holder').attr('text-anchor', 'end')
-        .attr('x', x - 20)
-        .attr('y', y - 12 - 5);
+        $('#holder').attr('text-anchor', 'end')
+            .attr('x', x - 20)
+            .attr('y', y - 12 - 5 - 25);
 
-    $('#ballState').attr('text-anchor', 'end')
-        .attr('x', x - 20)
-        .attr('y', y - 37 - 5);
+        $('#holderName').attr('text-anchor', 'end')
+            .attr('x', x - 20)
+            .attr('y', y - 12 - 5);
 
-    $('#stateBoardLine').attr('stroke-opacity', 0.9)
-        .attr('x1', x - 15)
-        .attr('x2', x - 15)
-        .attr('y1', y - 50 - 5)
-        .attr('y2', y - 15);
+        $('#ballState').attr('text-anchor', 'end')
+            .attr('x', x - 20)
+            .attr('y', y - 37 - 5 - 25);
 
+        $('#stateBoardLine').attr('stroke-opacity', 0.9)
+            .attr('x1', x - 15)
+            .attr('x2', x - 15)
+            .attr('y1', y - 50 - 5 - 25)
+            .attr('y2', y - 15);
+    } else {
+        $('#actionBoard').attr('width', rectWidth)
+            .attr('height', 50)
+            .attr('x', x - rectWidth - 10)
+            .attr('y', y - 50 - 10);
+
+        $('#holder').attr('text-anchor', 'end')
+            .attr('x', x - 20)
+            .attr('y', y - 12 - 5);
+
+        $('#ballState').attr('text-anchor', 'end')
+            .attr('x', x - 20)
+            .attr('y', y - 37 - 5);
+
+        $('#stateBoardLine').attr('stroke-opacity', 0.9)
+            .attr('x1', x - 15)
+            .attr('x2', x - 15)
+            .attr('y1', y - 50 - 5)
+            .attr('y2', y - 15);
+    }
     if (team == 2) {
         $('#actionBoard').attr('x', x + 10);
         $('#holder').attr('text-anchor', 'start')
@@ -876,6 +919,7 @@ function showAction(gameState) {
 function resetAction() {
     $('#ballState').text("");
     $('#holder').text("");
+    $('#holderName').text("");
     $('#actionBoard').attr('width', 0)
         .attr('height', 0)
     $('#stateBoardLine').attr('stroke-opacity', 0);
@@ -886,4 +930,48 @@ function resetAction() {
 function removeBall() {
     $("#ball").attr("x", -100);
     $("#ball").attr("y", -100);
+}
+
+function convertTo3Line() {
+    $("#awayStateBoard").attr("height", 60);
+    $("#awayStateBoard").attr("rx", 30);
+    $("#awayStateBoard").attr("ry", 30);
+    $("#awayStateJerseyCircle").attr("cx", 30);
+    $("#awayStateJerseyCircle").attr("cy", 30);
+    $("#awayStateJerseyCircle").attr("r", 30);
+    $("#awayState").attr("x", 70);
+    $("#awayName").attr("x", 70);
+    $("#awayJerseyGroup").attr("transform", "scale(0.165)");
+
+    $("#homeStateBoard").attr("height", 60);
+    $("#homeStateBoard").attr("rx", 30);
+    $("#homeStateBoard").attr("ry", 30);
+    $("#homeStateJerseyCircle").attr("cx", -30);
+    $("#homeStateJerseyCircle").attr("cy", 30);
+    $("#homeStateJerseyCircle").attr("r", 30);
+    $("#homeState").attr("x", -70);
+    $("#homeName").attr("x", -70);
+    $("#homeJerseyGroup").attr("transform", "scale(0.165)");
+}
+
+function convertTo2Line() {
+    $("#awayStateBoard").attr("height", 40);
+    $("#awayStateBoard").attr("rx", 20);
+    $("#awayStateBoard").attr("ry", 20);
+    $("#awayStateJerseyCircle").attr("cx", 20);
+    $("#awayStateJerseyCircle").attr("cy", 20);
+    $("#awayStateJerseyCircle").attr("r", 20);
+    $("#awayState").attr("x", 50);
+    $("#awayName").attr("x", 50);
+    $("#awayJerseyGroup").attr("transform", "scale(0.11)");
+
+    $("#homeStateBoard").attr("height", 40);
+    $("#homeStateBoard").attr("rx", 20);
+    $("#homeStateBoard").attr("ry", 20);
+    $("#homeStateJerseyCircle").attr("cx", -20);
+    $("#homeStateJerseyCircle").attr("cy", 20);
+    $("#homeStateJerseyCircle").attr("r", 20);
+    $("#homeState").attr("x", -50);
+    $("#homeName").attr("x", -50);
+    $("#homeJerseyGroup").attr("transform", "scale(0.11)");
 }

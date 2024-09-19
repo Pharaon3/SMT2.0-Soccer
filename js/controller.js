@@ -32,12 +32,12 @@ function updateEvent(data) {
       let y = parseFloat(data.gcd.XY.split(",")[1]);
       if (x > 1.5) x = x / 100;
       if (y > 1.5) y = y / 100;
-      setBallByXY(x, y);
+      setBallByXY(data.gcd.PG, x, y);
       setlastposx = x;
       setlastposy = y;
     }
     if (data.gcd.VC) {
-      setBallByVC(data.gcd.VC);
+      setBallByVC(data.gcd.VC, data.gcd.PG);
     }
   }
   initFootball(data);
@@ -78,12 +78,13 @@ function countdown() {
       removeBall();
       if (noTimeRunningState == 1) {
         var now = new Date();
-        var difference = matchStartTime - now;
+        var difference = now - matchStartTime;
         var seconds = Math.floor((difference / 1000) % 60);
         var minutes = Math.floor((difference / (1000 * 60)) % 60);
         var hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
         var days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        setEventLabel(["Match Not Started", `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`], 1, null);
+        // setEventLabel(["Match Not Started", `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`], 1, null);
+        setEventLabel(["Match Not Started", "0-0"], 1, null);
       }
       if (noTimeRunningState == 2) {
         setEventLabel(["Half Time", homeScore + "-" + awayScore], 1, null);
@@ -91,8 +92,8 @@ function countdown() {
     }
   }, framePeriod)
 }
-function setBallByXY(x, y, eventTexts, stateType = 0, detail) { // stateType 0: no text, 1: center text, 2: ball text
-  ball_pos.push([x, y, currentBallPossessionTeam, eventTexts, stateType, detail]);
+function setBallByXY(playerName="", x, y, eventTexts, stateType = 0, detail) { // stateType 0: no text, 1: center text, 2: ball text
+  ball_pos.push([x, y, currentBallPossessionTeam, eventTexts, stateType, detail, playerName]);
 }
 
 function kickBall(time, team) {
@@ -124,7 +125,7 @@ function initEachEvent() {
     resetAction();
   }
   if (ball_pos[current_step][4] == 0) {   // normal status
-    displayState(ball_pos[current_step][2]);
+    displayState(ball_pos[current_step][2], ball_pos[current_step][6]);
   } else {
     resetState();
     resetTrack();
